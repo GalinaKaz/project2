@@ -14,6 +14,7 @@ pipeline {
                 cd ${HOME}/scripts
                 ./C_prog
                 python3 Py_prog.py
+                bash Bash_prog
                 '''
             }
         }
@@ -56,6 +57,10 @@ pipeline {
             }
             steps {
                 echo 'running Bash....'
+                sh '''
+                cd ${HOME}/scripts
+                bash Bash_prog
+                '''
             }
         }
          
@@ -64,7 +69,7 @@ pipeline {
 
    post {   
 		always {
-			echo "this is the LANG: $LANG"
+			echo "this is the LANG: $LANG ; pwd "
 		}   
 		success {   
 			sh 'echo "BUILD_NUMBER=$BUILD_NUMBER success" >> report' 
