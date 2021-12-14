@@ -76,9 +76,9 @@ pipeline {
 	              touch ${report_file}
               fi
 	        date >> ${report_file}
-	        echo "USER=$USER JOB_NAME=$JOB_NAME" >> ${report_file}
+	        echo "JOB_NAME=$JOB_NAME" >> ${report_file}
             echo "Build Number $BUILD_NUMBER" >> ${report_file}
-            echo "The script runs for parameter LANG=${LANG}" >> ${report_file}
+            echo "The script runs with parameter LANG=${LANG}" >> ${report_file}
 	        echo "#############################" >> ${report_file}
             '''
          }
