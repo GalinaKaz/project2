@@ -22,7 +22,7 @@ pipeline {
             steps {
                 echo 'running C....'
                 sh '''
-                cd ${WORKSPACE}/scripts
+                cd ${HOME}/scripts
                 ./C_prog
                 '''
             }
