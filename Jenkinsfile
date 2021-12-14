@@ -2,14 +2,14 @@ pipeline {
     agent any
 
     stages {
-        stage('Testing All...') {
+        stage('Build: C,Python,Bash') {
             when {
                 expression{
                     LANG=='All'
                 }
             }
             steps {
-                echo 'running all....'
+                echo 'All scripts are running....'
                 sh '''
                 cd ${HOME}/scripts
                 ./C_prog
@@ -19,7 +19,7 @@ pipeline {
             }
         }
 
-        stage('Testing C') {
+        stage('Build: C') {
 	        when {
 	            expression{
 		            LANG=='C'
@@ -34,7 +34,7 @@ pipeline {
             }
         }
 
-        stage('Testing Python') {
+        stage('Build: Python') {
 	        when {
 	            expression{
 		            LANG=='Python'
@@ -49,7 +49,7 @@ pipeline {
             }
         }
 
-        stage('Testing Bash') {
+        stage('Build: Bash') {
 	        when {
 	            expression{
 		            LANG=='Bash'
@@ -63,23 +63,42 @@ pipeline {
                 '''
             }
         }
+
+        stage('Reporting Results') {
+         steps {
+            echo 'Reporting Results process to /var/jenkins_home/Log/report file '
+            sh '''
+	        report_file="${HOME}/Logs/report"
+            mkdir -p ${HOME}/Logs
+              if [ -f "${report_file}" ]; then
+                echo "file ${report_file} exists"
+              else
+	              touch ${report_file}
+              fi
+	        date >> ${report_file}
+	        echo "USER=$USER JOB_NAME=$JOB_NAME" >> ${report_file}
+            echo "Build Number $BUILD_NUMBER" >> ${report_file}
+            echo "The script runs for parameter LANG=${LANG}" >> ${report_file}
+	        echo "#############################" >> ${report_file}
+            '''
+         }
+      }
          
    }
 
 
    post {   
 		always {
-			echo "this is the LANG: $LANG  "
-			sh 'pwd'
+			echo 'Post line - always runs'
 		}   
 		success {   
-			sh 'echo "BUILD_NUMBER=$BUILD_NUMBER success" >> report' 
+			echo 'Post line - runs after success'
 		}   
 		failure {
-			sh 'echo "BUILD_NUMBER=$BUILD_NUMBER failed" >> report'   
+			echo 'Post line - runs after failure'
 		}   
 		unstable {   
-			echo 'I will only get executed if this is unstable'   
+			echo 'executed if run is unstable'
 		}   
    }
 }
