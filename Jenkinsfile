@@ -10,6 +10,11 @@ pipeline {
             }
             steps {
                 echo 'running all....'
+                sh '''
+                cd ${HOME}/scripts
+                ./C_prog
+                python3 Py_prog.py
+                '''
             }
         }
 
@@ -36,6 +41,10 @@ pipeline {
             }
             steps {
                 echo 'running Python....'
+                sh '''
+                cd ${HOME}/scripts
+                python3 Py_prog.py
+                '''
             }
         }
 
