@@ -69,7 +69,8 @@ pipeline {
 
    post {   
 		always {
-			echo "this is the LANG: $LANG ; pwd "
+			echo "this is the LANG: $LANG  "
+			sh 'pwd'
 		}   
 		success {   
 			sh 'echo "BUILD_NUMBER=$BUILD_NUMBER success" >> report' 
