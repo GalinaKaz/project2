@@ -11,7 +11,7 @@ pipeline {
             steps {
                 echo 'All scripts are running....'
                 sh '''
-                cd ${WORKSPACE}
+                cd ${WORKSPACE}/scripts
                 ./C_prog
                 python3 Py_prog.py
                 bash Bash_prog
@@ -28,7 +28,7 @@ pipeline {
             steps {
                 echo 'running C....'
                 sh '''
-                cd ${WORKSPACE}
+                cd ${WORKSPACE}/scripts
                 ./C_prog
                 '''
             }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 echo 'running Python....'
                 sh '''
-                cd ${WORKSPACE}
+                cd ${WORKSPACE}/scripts
                 python3 Py_prog.py
                 '''
             }
@@ -58,7 +58,7 @@ pipeline {
             steps {
                 echo 'running Bash....'
                 sh '''
-                cd ${WORKSPACE}
+                cd ${WORKSPACE}/scripts
                 bash Bash_prog
                 '''
             }
