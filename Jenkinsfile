@@ -12,6 +12,7 @@ pipeline {
                 echo 'All scripts are running....'
                 sh '''
                 cd ${WORKSPACE}/scripts
+                chmod 755 C_prog
                 ./C_prog
                 python3 Py_prog.py
                 bash Bash_prog
@@ -29,6 +30,7 @@ pipeline {
                 echo 'running C....'
                 sh '''
                 cd ${WORKSPACE}/scripts
+                chmod 755 C_prog
                 ./C_prog
                 '''
             }
