@@ -2,28 +2,10 @@ pipeline {
     agent any
 
     stages {
-        stage('Build: C,Python,Bash') {
-            when {
-                expression{
-                    LANG=='All'
-                }
-            }
-            steps {
-                echo 'All scripts are running....'
-                sh '''
-                cd ${WORKSPACE}/scripts
-                chmod 755 C_prog
-                ./C_prog
-                python3 Py_prog.py
-                bash Bash_prog
-                '''
-            }
-        }
-
-        stage('Build: C') {
+         stage('Build: C') {
 	        when {
 	            expression{
-		            LANG=='C'
+		            LANG=='C' || LANG =='All'
 	            }
             }
             steps {
@@ -39,7 +21,7 @@ pipeline {
         stage('Build: Python') {
 	        when {
 	            expression{
-		            LANG=='Python'
+		            LANG=='Python' || LANG =='All'
 	            }
             }
             steps {
@@ -54,7 +36,7 @@ pipeline {
         stage('Build: Bash') {
 	        when {
 	            expression{
-		            LANG=='Bash'
+		            LANG=='Bash' || LANG =='All'
 	            }
             }
             steps {
